@@ -293,7 +293,7 @@
 
     <header>
         <div class="theme-toggle-container">
-            <button class="btn-theme" onclick="toggleTheme()">🌓 Toggle Mode</button>
+            <button id="themeToggleBtn" class="btn-theme">🌓 Toggle Mode</button>
         </div>
         <h1>Operating System Class Dashboard</h1>
         <p>Mastering computer deployments through interactive layouts and slide workflows</p>
@@ -306,9 +306,9 @@
             <p style="color: var(--text-muted); margin-bottom: 2rem;">Select an operating system platform layout to evaluate the clean workflow tracks translated into simplified guide frameworks.</p>
 
             <div class="tab-navigation">
-                <button class="tab-trigger active" onclick="switchTab(event, 'win')">🪟 Windows 11 / 10</button>
-                <button class="tab-trigger" onclick="switchTab(event, 'lin')">🐧 Ubuntu Linux</button>
-                <button class="tab-trigger" onclick="switchTab(event, 'mac')">🍏 Apple macOS</button>
+                <button class="tab-trigger active" data-target="win">🪟 Windows 11 / 10</button>
+                <button class="tab-trigger" data-target="lin">🐧 Ubuntu Linux</button>
+                <button class="tab-trigger" data-target="mac">🍏 Apple macOS</button>
             </div>
 
             <!-- Windows View -->
@@ -322,3 +322,4 @@
                         <div class="step-number">2</div>
                         <div class="step-text"><strong>Choose Language</strong>Click your language, country, and keyboard layout from the list, then click the big "Install Now" button.</div>
                     </li>
+                    <li class="step-item">
