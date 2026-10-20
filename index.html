@@ -6,23 +6,19 @@
     <title>Easy Student OS Installation Hub</title>
     <style>
         :root {
-            --bg-body: #f8fafc;
+            --bg-body: #f1f5f9;
             --bg-card: #ffffff;
             --text-title: #0f172a;
             --text-body: #334155;
-            --text-muted: #64748b;
-            --border-color: #e2e8f0;
-            --tab-bg: #e2e8f0;
-            --tab-active-bg: #ffffff;
             --primary: #3b82f6;
-            --primary-hover: #2563eb;
-            --success: #10b981;
-            --danger: #ef4444;
-            --bg-gradient: linear-gradient(135deg, #1e3a8a, #3b82f6);
+            --primary-light: #eff6ff;
+            --accent: #10b981;
+            --accent-dark: #1e293b;
+            --border: #e2e8f0;
         }
 
         body {
-            font-family: system-ui, -apple-system, sans-serif;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             margin: 0;
             padding: 0;
             background-color: var(--bg-body);
@@ -31,194 +27,211 @@
         }
 
         header {
-            background: var(--bg-gradient);
+            background: linear-gradient(135deg, #1e3a8a, #3b82f6);
             color: white;
             text-align: center;
             padding: 3rem 1rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
 
         header h1 { margin: 0; font-size: 2.2rem; font-weight: 800; }
-        header p { font-size: 1rem; opacity: 0.9; margin-top: 0.5rem; }
+        header p { font-size: 1.1rem; opacity: 0.9; margin-top: 0.5rem; }
 
         main {
             max-width: 800px;
-            margin: 2rem auto;
-            padding: 0 1rem;
+            margin: 2.5rem auto;
+            padding: 0 1.5rem;
         }
 
         .card {
             background: var(--bg-card);
-            border-radius: 12px;
+            border-radius: 16px;
             padding: 2rem;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            margin-bottom: 2rem;
-            border: 1px solid var(--border-color);
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.05);
+            margin-bottom: 2.5rem;
+            border: 1px solid var(--border);
         }
 
-        h2 { font-size: 1.5rem; margin-top: 0; color: var(--text-title); padding-bottom: 0.5rem; border-bottom: 2px solid var(--border-color); }
-
-        .tab-navigation {
-            display: flex;
-            gap: 0.5rem;
+        h2 {
+            font-size: 1.5rem;
+            margin-top: 0;
+            color: var(--text-title);
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid var(--border);
             margin-bottom: 1.5rem;
-            background: var(--tab-bg);
-            padding: 0.4rem;
-            border-radius: 8px;
         }
 
-        .tab-trigger {
-            flex: 1;
-            padding: 0.75rem;
-            border: none;
-            background: transparent;
-            font-weight: 700;
-            font-size: 0.95rem;
-            cursor: pointer;
-            border-radius: 6px;
-            color: var(--text-muted);
+        /* Pure CSS CSS Tabs Setup Framework */
+        .tab-system {
+            display: flex;
+            flex-direction: column;
         }
 
-        .tab-trigger.active {
-            background: var(--tab-active-bg);
-            color: var(--primary);
-        }
-
-        .tab-view { display: none; }
-        .tab-view.active { display: block; }
-
-        .step-item {
-            background: var(--bg-body);
-            padding: 1rem;
-            border-radius: 8px;
-            margin-bottom: 1rem;
-            border-left: 4px solid var(--primary);
-        }
-
-        .step-item strong { display: block; color: var(--text-title); margin-bottom: 0.25rem; }
-
-        .quiz-box {
-            background: var(--bg-body);
-            padding: 1rem;
-            border-radius: 8px;
-            margin-bottom: 1rem;
-            border: 1px solid var(--border-color);
-        }
-
-        .quiz-option { display: block; margin: 0.5rem 0; cursor: pointer; }
-
-        .btn-action {
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 0.85rem;
-            border-radius: 8px;
-            font-size: 1rem;
-            font-weight: bold;
-            cursor: pointer;
-            width: 100%;
-        }
-
-        .feedback {
-            margin-top: 0.5rem;
-            padding: 0.5rem;
-            border-radius: 6px;
-            font-weight: bold;
+        /* Hide radio inputs completely */
+        .tab-input {
             display: none;
         }
-        .correct { background: rgba(16, 185, 129, 0.1); color: var(--success); }
-        .incorrect { background: rgba(239, 68, 68, 0.1); color: var(--danger); }
 
-        .ppt-slide {
-            background: #1e293b;
-            color: #f1f5f9;
-            padding: 1.2rem;
-            border-radius: 8px;
-            margin-bottom: 1rem;
-            border-left: 4px solid var(--success);
+        .tab-headers {
+            display: flex;
+            gap: 0.5rem;
+            background: #e2e8f0;
+            padding: 0.4rem;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
         }
-        .ppt-slide h4 { margin: 0 0 0.5rem 0; color: #34d399; }
+
+        .tab-label {
+            flex: 1;
+            text-align: center;
+            padding: 0.85rem;
+            font-weight: 700;
+            cursor: pointer;
+            border-radius: 8px;
+            color: #64748b;
+            transition: all 0.25s ease;
+            user-select: none;
+        }
+
+        .tab-label:hover {
+            color: var(--text-title);
+        }
+
+        /* Display Content when tab input radio is selected */
+        #tab-win:checked ~ .tab-headers label[for="tab-win"],
+        #tab-lin:checked ~ .tab-headers label[for="tab-lin"],
+        #tab-mac:checked ~ .tab-headers label[for="tab-mac"] {
+            background: white;
+            color: var(--primary);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        .tab-panels .panel {
+            display: none;
+        }
+
+        #tab-win:checked ~ .tab-panels #panel-win,
+        #tab-lin:checked ~ .tab-panels #panel-lin,
+        #tab-mac:checked ~ .tab-panels #panel-mac {
+            display: block;
+        }
+
+        /* Beautiful Clean Visual Step Design Layout */
+        .step-box {
+            background: #f8fafc;
+            border: 1px solid var(--border);
+            border-left: 5px solid var(--primary);
+            padding: 1.25rem;
+            border-radius: 8px;
+            margin-bottom: 1.25rem;
+        }
+
+        .step-box strong {
+            display: block;
+            color: var(--text-title);
+            font-size: 1.1rem;
+            margin-bottom: 0.35rem;
+        }
+
+        /* Simple Teacher PPT Presentation View Cards Layout */
+        .ppt-layout {
+            background: var(--accent-dark);
+            color: #f1f5f9;
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+            border-left: 5px solid var(--accent);
+        }
+
+        .ppt-layout h3 {
+            margin: 0 0 0.5rem 0;
+            color: #34d399;
+            font-size: 1.2rem;
+        }
+
+        .ppt-layout ul {
+            margin: 0;
+            padding-left: 1.2rem;
+        }
+
+        .ppt-layout li {
+            margin-bottom: 0.5rem;
+        }
     </style>
 </head>
 <body>
 
     <header>
         <h1>Operating System Class Dashboard</h1>
-        <p>Master installations with easy terms and quick slide workflows</p>
+        <p>Explain installations cleanly using simple terms and visual presentation cards</p>
     </header>
 
     <main>
-        <!-- Card 1: Easy Step-by-Step Guides -->
+        <!-- Card 1: Main Platform Walkthrough Engine -->
         <div class="card">
             <h2>🚀 Easy Step-by-Step Installation Guides</h2>
             
-            <div class="tab-navigation">
-                <button class="tab-trigger active" data-target="win">🪟 Windows</button>
-                <button class="tab-trigger" data-target="lin">🐧 Linux</button>
-                <button class="tab-trigger" data-target="mac">🍏 macOS</button>
-            </div>
+            <div class="tab-system">
+                <!-- Radio Elements that govern show actions safely without code freezes -->
+                <input type="radio" id="tab-win" name="os-tabs" class="tab-input" checked>
+                <input type="radio" id="tab-lin" name="os-tabs" class="tab-input">
+                <input type="radio" id="tab-mac" name="os-tabs" class="tab-input">
 
-            <!-- Windows View -->
-            <div id="win-panel" class="tab-view active">
-                <div class="step-item"><strong>1. Plug in & Boot up</strong>Insert your Windows USB installer into the computer. Turn the PC on and keep tapping the boot key (usually F12 or F2) until a small menu pops up. Choose your USB drive to start.</div>
-                <div class="step-item"><strong>2. Choose Language</strong>Click your language, country, and keyboard layout from the list, then click the big "Install Now" button.</div>
-                <div class="step-item"><strong>3. Pick "Custom" Install</strong>Choose "Custom: Install Windows only". This ensures a clean, fresh setup rather than an upgrade patch.</div>
-                <div class="step-item"><strong>4. Select Storage Drive</strong>Click on your main hard drive partition from the list and hit Next. Windows will configure the space for you.</div>
-                <div class="step-item"><strong>5. The Critical Unplug</strong>When files finish copying and the system says it is restarting, pull out the USB drive so the setup loop doesn't restart.</div>
-            </div>
+                <div class="tab-headers">
+                    <label for="tab-win" class="tab-label">🪟 Windows 11/10</label>
+                    <label for="tab-lin" class="tab-label">🐧 Ubuntu Linux</label>
+                    <label for="tab-mac" class="tab-label">🍏 Apple macOS</label>
+                </div>
 
-            <!-- Linux View -->
-            <div id="lin-panel" class="tab-view">
-                <div class="step-item"><strong>1. Boot into Live Desktop</strong>Plug in your Linux USB drive, start the machine, and choose "Try or Install Ubuntu". This runs a working test sandbox without changing your drive yet.</div>
-                <div class="step-item"><strong>2. Open Setup Wizard</strong>Click the desktop shortcut icon named "Install Ubuntu" to activate the installer window.</div>
-                <div class="step-item"><strong>3. Drive Layout Allocations</strong>Select "Erase disk and install Ubuntu". This automatically wipes any old data and configures the standard Linux partition settings.</div>
-                <div class="step-item"><strong>4. Account Profiles</strong>Pick your time zone map coordinate and write down your username, computer network label, and a private login password.</div>
-            </div>
+                <div class="tab-panels">
+                    <!-- Windows Workflow -->
+                    <div id="panel-win" class="panel">
+                        <div class="step-box">
+                            <strong>Step 1: Plug in & Boot up</strong>
+                            Insert your Windows installer USB drive into the turned-off computer. Turn the computer on and immediately start tapping the boot hotkey (usually <b>F12</b> or <b>F2</b>). Select your USB drive from the menu list to begin.
+                        </div>
+                        <div class="step-box">
+                            <strong>Step 2: Choose Language Settings</strong>
+                            Click your primary country, input language, and keyboard style format. Once selected, click the big <b>"Install Now"</b> button on the center screen.
+                        </div>
+                        <div class="step-box">
+                            <strong>Step 3: Enter Product Key</strong>
+                            Type in your license key if you have one. If you don't, click <b>"I don't have a product key"</b> to continue to the system selection screen safely.
+                        </div>
+                        <div class="step-box">
+                            <strong>Step 4: Pick "Custom" Installation</strong>
+                            Choose the option that says <b>"Custom: Install Windows only (advanced)"</b>. This makes sure you perform a pristine, fresh installation instead of mixing files.
+                        </div>
+                        <div class="step-box">
+                            <strong>Step 5: Setup Disk Partition Space</strong>
+                            Select the drive partition where you want the operating system placed. Click your drive, hit <b>"Format"</b> or choose <b>"Unallocated Space"</b>, and click Next.
+                        </div>
+                        <div class="step-box">
+                            <strong>Step 6: The Critical USB Unplug</strong>
+                            Watch the loading bar screen. The very second the file extraction counter hits 100% and your computer triggers its first automatic restart sequence, <b>pull the USB drive out</b>. This completely stops your machine from accidentally looping back to start the whole installer layout over again!
+                        </div>
+                    </div>
 
-            <!-- macOS View -->
-            <div id="mac-panel" class="tab-view">
-                <div class="step-item"><strong>1. Enter Recovery Mode</strong>Turn off your Mac. Hold down Cmd + R (Intel Mac) or hold the physical Power button (Apple Silicon Mac) until recovery options display.</div>
-                <div class="step-item"><strong>2. Disk Utility Format</strong>Open "Disk Utility", click on your main storage drive container, choose "Erase", format it cleanly as "APFS", and close the tool.</div>
-                <div class="step-item"><strong>3. Reinstall macOS</strong>Select "Reinstall macOS" from the utility grid layout menu, click continue, choose your drive, and stream the setup files from the network cloud.</div>
-            </div>
-        </div>
+                    <!-- Linux Workflow -->
+                    <div id="panel-lin" class="panel">
+                        <div class="step-box">
+                            <strong>Step 1: Run the Safe Live Desktop Sandbox</strong>
+                            Plug in your Linux installer flash media and boot up using your system key sequence. Choose <b>"Try or Install Ubuntu"</b> from the startup list. This launches a test operating system model directly in your memory without changing your hard disk files yet.
+                        </div>
+                        <div class="step-box">
+                            <strong>Step 2: Start the Graphical Installer</strong>
+                            Find the desktop shortcut app labeled <b>"Install Ubuntu"</b> and double-click it to load the clean system configuration guide wizard.
+                        </div>
+                        <div class="step-box">
+                            <strong>Step 3: Wipe Disk & Automatic Formatting</strong>
+                            Select the option that says <b>"Erase disk and install Ubuntu"</b>. This safely cleans out the drive partition space and translates your hardware layout into a standard Linux file format automatically.
+                        </div>
+                        <div class="step-box">
+                            <strong>Step 4: Set Timezone & Create Admin User</strong>
+                            Click your geographical position on the world map graphic to auto-set your clocks. Next, type in your full student name, a custom workspace computer handle name, and a unique password to lock your account.
+                        </div>
+                    </div>
 
-        <!-- Card 2: Presentation Outlines -->
-        <div class="card">
-            <h2>📊 Presentation Plan: How to Explain This on a Slide PPT</h2>
-            <div class="ppt-slide">
-                <h4>🛝 Slide 1: General Introduction</h4>
-                <p><strong>Script:</strong> "Every operating system acts like the brain of a computer. Today, we aren't just memorizing buttons—we are learning the golden workflow sequence to deploy any OS on earth."</p>
-            </div>
-            <div class="ppt-slide">
-                <h4>🛝 Slide 2: Crucial USB Boot Intercept</h4>
-                <p><strong>Script:</strong> "We use tools like Rufus to turn flash drives into bootable media. We must intercept the startup using keys like F12 to read our USB drive before the empty hard disk handles it."</p>
-            </div>
-        </div>
-
-        <!-- Card 3: Interactive Classroom Quiz -->
-        <div class="card">
-            <h2>📝 Classroom Knowledge Assessment Challenge</h2>
-            
-            <div class="quiz-box">
-                <div><strong>1. Why must you unplug your installer USB drive during the first Windows reboot?</strong></div>
-                <label class="quiz-option"><input type="radio" name="q1" value="A"> A) To save electricity</label>
-                <label class="quiz-option"><input type="radio" name="q1" value="B"> B) To avoid looping straight back into the installer startup screen</label>
-                <div id="f1" class="feedback"></div>
-            </div>
-
-            <div class="quiz-box">
-                <div><strong>2. What does "Live Desktop" mode in a Linux installation mean?</strong></div>
-                <label class="quiz-option"><input type="radio" name="q2" value="A"> A) It runs a sandbox environment directly from your USB drive safely</label>
-                <label class="quiz-option"><input type="radio" name="q2" value="B"> B) It only loads over active video calls</label>
-                <div id="f2" class="feedback"></div>
-            </div>
-
-            <button id="submitQuizBtn" type="button" class="btn-action">✅ Submit Answers & Check Score</button>
-        </div>
-    </main>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // Safe Tab Controller Switching
-            const triggers = document.querySelectorAll('.tab-trigger');
-            triggers.forEach(trigger => {
+                    <!-- macOS Workflow -->
+                    <div id="panel-mac" class="panel">
+                        <div class="step-box">
