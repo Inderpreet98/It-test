@@ -3,217 +3,322 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OS Installation Guide for Students</title>
+    <title>Premium Student OS Installation Hub</title>
     <style>
         :root {
-            --primary: #2563eb;
-            --dark: #1e293b;
-            --light: #f8fafc;
-            --border: #e2e8f0;
-            --win-color: #0078d4;
-            --lin-color: #e95420;
-            --mac-color: #000000;
+            --bg-body: #f8fafc;
+            --bg-card: #ffffff;
+            --text-title: #0f172a;
+            --text-body: #334155;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            --tab-bg: #e2e8f0;
+            --tab-active-bg: #ffffff;
+            --primary: #3b82f6;
+            --primary-hover: #2563eb;
+            --success: #10b981;
+            --danger: #ef4444;
+            --bg-gradient: linear-gradient(135deg, #1e3a8a, #3b82f6);
+            --card-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
+        }
+
+        [data-theme="dark"] {
+            --bg-body: #0f172a;
+            --bg-card: #1e293b;
+            --text-title: #f8fafc;
+            --text-body: #cbd5e1;
+            --text-muted: #94a3b8;
+            --border-color: #334155;
+            --tab-bg: #334155;
+            --tab-active-bg: #1e293b;
+            --bg-gradient: linear-gradient(135deg, #0f172a, #1e3a8a);
+            --card-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
         }
 
         body {
-            font-family: system-ui, -apple-system, sans-serif;
-            line-height: 1.6;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: var(--light);
-            color: var(--dark);
+            background-color: var(--bg-body);
+            color: var(--text-body);
+            line-height: 1.6;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
         header {
-            background-color: var(--dark);
+            background: var(--bg-gradient);
             color: white;
             text-align: center;
-            padding: 2rem 1rem;
+            padding: 4rem 1rem;
+            position: relative;
+            clip-path: polygon(0 0, 100% 0, 100% 88%, 0% 100%);
+            transition: background 0.3s ease;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            font-weight: 800;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-top: 0.5rem;
+        }
+
+        .theme-toggle-container {
+            position: absolute;
+            top: 1.5rem;
+            right: 2rem;
+        }
+
+        .btn-theme {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-theme:hover {
+            background: rgba(255, 255, 255, 0.3);
         }
 
         main {
-            max-width: 1000px;
-            margin: 2rem auto;
-            padding: 0 1rem;
+            max-width: 900px;
+            margin: -2.5rem auto 4rem auto;
+            padding: 0 1.5rem;
         }
 
-        section {
-            background: white;
-            padding: 2rem;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
-            margin-bottom: 2rem;
+        .card {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 2.5rem;
+            box-shadow: var(--card-shadow);
+            margin-bottom: 2.5rem;
+            border: 1px solid var(--border-color);
+            transition: background-color 0.3s ease, border-color 0.3s ease;
         }
 
         h2 {
-            color: var(--primary);
-            border-bottom: 2px solid var(--border);
-            padding-bottom: 0.5rem;
+            font-size: 1.75rem;
             margin-top: 0;
+            color: var(--text-title);
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 0.75rem;
+            margin-bottom: 1.5rem;
         }
 
-        /* Flow Chart Styles */
-        .flow-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
-            justify-content: space-between;
-            margin: 1.5rem 0;
-        }
-
-        .flow-step {
-            flex: 1;
-            min-width: 160px;
-            background: #eff6ff;
-            border: 2px solid #bfdbfe;
-            border-radius: 6px;
-            padding: 1rem;
-            text-align: center;
-        }
-
-        .flow-step strong {
-            color: var(--primary);
-            display: block;
-            margin-bottom: 0.25rem;
-        }
-
-        /* Table Styles */
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 1.5rem 0;
-        }
-
-        th, td {
-            border: 1px solid var(--border);
-            padding: 0.75rem;
-            text-align: left;
-        }
-
-        th {
-            background-color: #f1f5f9;
-        }
-
-        /* Interactive Tabs */
-        .tabs {
+        /* Nav Tabs Layout */
+        .tab-navigation {
             display: flex;
             gap: 0.5rem;
-            margin-bottom: 1rem;
+            margin-bottom: 2rem;
+            background: var(--tab-bg);
+            padding: 0.4rem;
+            border-radius: 12px;
         }
 
-        .tab-btn {
-            padding: 0.75rem 1.5rem;
+        .tab-trigger {
+            flex: 1;
+            padding: 0.85rem;
             border: none;
-            background: #e2e8f0;
+            background: transparent;
+            font-weight: 700;
+            font-size: 1rem;
             cursor: pointer;
-            font-weight: bold;
-            border-radius: 4px;
-            transition: all 0.2s;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            color: var(--text-muted);
         }
 
-        .tab-btn.active[data-os="windows"] { background: var(--win-color); color: white; }
-        .tab-btn.active[data-os="linux"] { background: var(--lin-color); color: white; }
-        .tab-btn.active[data-os="macos"] { background: var(--mac-color); color: white; }
+        .tab-trigger.active {
+            background: var(--tab-active-bg);
+            color: var(--primary);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
 
-        .tab-content {
+        .tab-view {
             display: none;
-            padding: 1rem;
-            border: 1px solid var(--border);
-            border-radius: 4px;
-            background: #fff;
+            animation: fadeIn 0.4s ease;
         }
 
-        .tab-content.active {
+        .tab-view.active {
             display: block;
         }
 
-        ol li {
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Step List Connected Progression Layout */
+        .step-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            position: relative;
+        }
+
+        .step-item {
+            display: flex;
+            gap: 1.25rem;
+            margin-bottom: 1.5rem;
+            background: var(--bg-body);
+            padding: 1.25rem;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            position: relative;
+        }
+
+        .step-number {
+            background: var(--primary);
+            color: white;
+            font-weight: bold;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            box-shadow: 0 2px 4px rgba(59, 130, 246, 0.3);
+        }
+
+        .step-text strong {
+            display: block;
+            color: var(--text-title);
+            margin-bottom: 0.35rem;
+            font-size: 1.1rem;
+        }
+
+        /* Quiz Layout Framework */
+        .quiz-box {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: var(--bg-body);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+
+        .quiz-question {
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-title);
+        }
+
+        .quiz-option {
+            display: block;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 0.85rem 1.25rem;
+            border-radius: 8px;
             margin-bottom: 0.75rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .quiz-option:hover {
+            border-color: var(--primary);
+            background: rgba(59, 130, 246, 0.05);
+        }
+
+        .quiz-option input {
+            margin-right: 0.75rem;
+        }
+
+        .btn-action {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.85rem 2rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s;
+            width: 100%;
+        }
+
+        .btn-action:hover {
+            background: var(--primary-hover);
+        }
+
+        .feedback-message {
+            margin-top: 1rem;
+            padding: 0.85rem;
+            border-radius: 8px;
+            font-weight: bold;
+            display: none;
+        }
+
+        .feedback-correct { background: rgba(16, 185, 129, 0.15); color: var(--success); border: 1px solid var(--success); }
+        .feedback-incorrect { background: rgba(239, 68, 68, 0.15); color: var(--danger); border: 1px solid var(--danger); }
+
+        /* Presentation Outlines Layout */
+        .ppt-slide {
+            background: #1e293b;
+            color: #f1f5f9;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 1.25rem;
+            border-left: 5px solid var(--success);
+        }
+
+        .ppt-slide h4 {
+            margin: 0 0 0.5rem 0;
+            color: #34d399;
+            font-size: 1.1rem;
+        }
+
+        .ppt-slide ul {
+            margin: 0;
+            padding-left: 1.25rem;
+        }
+
+        .ppt-slide li {
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
         }
     </style>
 </head>
 <body>
 
     <header>
-        <h1>Operating System Installation Guide</h1>
-        <p>An interactive resource lesson plan for IT students</p>
+        <div class="theme-toggle-container">
+            <button class="btn-theme" onclick="toggleTheme()">🌓 Toggle Mode</button>
+        </div>
+        <h1>Operating System Class Dashboard</h1>
+        <p>Mastering computer deployments through interactive layouts and slide workflows</p>
     </header>
 
     <main>
-        <!-- Section 1: Core Flow -->
-        <section>
-            <h2>1. The Universal 5-Step Process</h2>
-            <p>Regardless of which operating system you are deploying, almost all installations follow this exact underlying workflow sequence:</p>
-            <div class="flow-container">
-                <div class="flow-step"><strong>Step 1: Prep</strong>Create a bootable USB medium from an ISO image.</div>
-                <div class="flow-step"><strong>Step 2: Boot</strong>Interrupt startup (F2/F12) to boot from the USB.</div>
-                <div class="flow-step"><strong>Step 3: Partition</strong>Format, wipe, or slice the destination drive.</div>
-                <div class="flow-step"><strong>Step 4: Copy</strong>Automated extraction of core system files.</div>
-                <div class="flow-step"><strong>Step 5: Setup</strong>Configure user profiles, locales, and privacy networks.</div>
-            </div>
-        </section>
+        <!-- Section 1: Step-by-Step Dashboard -->
+        <div class="card">
+            <h2>🚀 Easy Step-by-Step Installation Guides</h2>
+            <p style="color: var(--text-muted); margin-bottom: 2rem;">Select an operating system platform layout to evaluate the clean workflow tracks translated into simplified guide frameworks.</p>
 
-        <!-- Section 2: Interactive OS Specifics -->
-        <section>
-            <h2>2. OS-Specific Installation Steps</h2>
-            <p>Click the buttons below to switch between operating systems and view their specific manual steps:</p>
-            
-            <div class="tabs">
-                <button class="tab-btn active" data-os="windows">🪟 Windows 11/10</button>
-                <button class="tab-btn" data-os="linux">🐧 Ubuntu Linux</button>
-                <button class="tab-btn" data-os="macos">🍏 macOS Recovery</button>
+            <div class="tab-navigation">
+                <button class="tab-trigger active" onclick="switchTab('win')">🪟 Windows 11 / 10</button>
+                <button class="tab-trigger" onclick="switchTab('lin')">🐧 Ubuntu Linux</button>
+                <button class="tab-trigger" onclick="switchTab('mac')">🍏 Apple macOS</button>
             </div>
 
-            <!-- Windows Content -->
-            <div id="windows" class="tab-content active">
-                <h3>Windows Installation Architecture</h3>
-                <ol>
-                    <li><strong>Boot from Flash Drive:</strong> Power on the device while tapping your manufacturer's boot menu hotkey (typically <code>F12</code> or <code>F2</code>) and choose the UEFI USB option.</li>
-                    <li><strong>Locale Selection:</strong> Choose language, time formats, and keyboard configuration inputs, then select <strong>Install Now</strong>.</li>
-                    <li><strong>License Activation:</strong> Enter your 25-character product token key, or choose <em>"I don't have a product key"</em> for evaluation mode testing.</li>
-                    <li><strong>Custom Selection:</strong> Choose <strong>Custom: Install Windows only (advanced)</strong> to manage structural drive layouts.</li>
-                    <li><strong>Drive Partitioning:</strong> Select your target drive partition, clear out old logical paths, or choose unallocated raw storage blocks.</li>
-                    <li><strong>Reboot Cycle:</strong> Once standard file copying wraps up, pull the USB thumb-drive out immediately during the reboot count down so it does not loop the installer.</li>
-                    <li><strong>OOBE Configuration:</strong> Complete out-of-box customizations (Microsoft profile mapping, PIN assignment, telemetry parameters).</li>
-                </ol>
-            </div>
-
-            <!-- Linux Content -->
-            <div id="linux" class="tab-content">
-                <h3>Ubuntu Linux Installation Architecture</h3>
-                <ol>
-                    <li><strong>Enter Live Environment:</strong> Boot the installation USB media and select **Try or Install Ubuntu** from the GRUB loader interface.</li>
-                    <li><strong>Trigger Setup Wizard:</strong> Click the main desktop icon shortcut to load the direct graphical desktop distribution manager wizard.</li>
-                    <li><strong>Network Handshake:</strong> Bind onto local Wi-Fi or Ethernet options to permit automatic system patch acquisition arrays.</li>
-                    <li><strong>Package Scale Profiles:</strong> Choose a *Normal Installation* for office application software bundles, or a *Minimal Installation* for clean environment testbeds.</li>
-                    <li><strong>Drive Layout Allocations:</strong> Opt to *Erase disk and install Ubuntu* for baseline operations, or select *Something Else* to configure custom root (<code>/</code>), <code>/home</code>, or swap memory spaces.</li>
-                    <li><strong>Map Target Boundaries:</strong> Select regional coordinate frames on the layout map graphic to set system timezone references.</li>
-                    <li><strong>Credential Generation:</strong> Input user handles, domain naming conventions, and local administrative system security passwords.</li>
-                </ol>
-            </div>
-
-            <!-- macOS Content -->
-            <div id="macos" class="tab-content">
-                <h3>macOS Recovery Installation Architecture</h3>
-                <ol>
-                    <li><strong>Activate Base Recovery Mode:</strong> Boot hardware using operational key profiles (Hold down <code>Cmd + R</code> on Intel frameworks, or hold down the physical power button on Apple Silicon builds).</li>
-                    <li><strong>Format Target Volumes:</strong> Launch the native **Disk Utility** asset from the screen window interface menu.</li>
-                    <li><strong>Clean Outbound Paths:</strong> Select your main hardware drive volume, click **Erase**, and format the clean target workspace as **APFS**. Close the tool window layout when finished.</li>
-                    <li><strong>Trigger Base Setup:</strong> Select **Reinstall macOS** from the core utility menu system framework interface.</li>
-                    <li><strong>Accept Agreements:</strong> Review operating terms profiles and bind structural software paths onto your freshly cleared APFS volume node.</li>
-                    <li><strong>File Streaming:</strong> Allow the unit to process cloud repository streaming installations (Ensure physical power lines remain connected).</li>
-                    <li><strong>Personalization Wizard:</strong> Complete native system configurations (Apple ID binding, FileVault storage security, Accessibility mappings).</li>
-                </ol>
-            </div>
-        </section>
-
-        <!-- Section 3: Platform Comparison Matrix -->
-        <section>
-            <h2>3. Cross-Platform Comparison Matrix</h2>
-            <div style="overflow-x:auto;">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Parametric Metric</th>
-                            <th>Windows Environment</th>
-                            <th>Linux Distribution</th>
+            <!-- Windows View -->
+            <div id="win-panel" class="tab-view active">
+                <ul class="step-list">
+                    <li class="step-item">
+                        <div class="step-number">1</div>
+                        <div class="step-text"><strong>Plug in &amp; Boot up</strong>Insert your Windows USB installer into the computer. Turn the PC on and keep tapping the boot key (usually F12 or F2) until a small menu pops up. Choose your USB drive to start.</div>
+                    </li>
+                    <li class="step-item">
+                        <div class="step-number">2</div>
+                        <div class="step-text"><strong>Choose Language</strong>Click your language, country, and keyboard layout from the list, then click the big "Install Now" button.</div>
+                    </li>
