@@ -10,30 +10,215 @@
             --bg-card: #ffffff;
             --text-title: #0f172a;
             --text-body: #334155;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            --tab-bg: #e2e8f0;
+            --tab-active-bg: #ffffff;
             --primary: #3b82f6;
+            --primary-hover: #2563eb;
             --success: #10b981;
             --danger: #ef4444;
+            --bg-gradient: linear-gradient(135deg, #1e3a8a, #3b82f6);
         }
-        body { font-family: system-ui, sans-serif; margin: 0; padding: 2rem; background: var(--bg-body); color: var(--text-body); }
-        .card { background: var(--bg-card); border-radius: 12px; padding: 2rem; margin-bottom: 2rem; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
-        .btn-action { background: var(--primary); color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 6px; cursor: pointer; width: 100%; font-weight: bold; }
+
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-body);
+            color: var(--text-body);
+            line-height: 1.6;
+        }
+
+        header {
+            background: var(--bg-gradient);
+            color: white;
+            text-align: center;
+            padding: 3rem 1rem;
+        }
+
+        header h1 { margin: 0; font-size: 2.2rem; font-weight: 800; }
+        header p { font-size: 1rem; opacity: 0.9; margin-top: 0.5rem; }
+
+        main {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            margin-bottom: 2rem;
+            border: 1px solid var(--border-color);
+        }
+
+        h2 { font-size: 1.5rem; margin-top: 0; color: var(--text-title); padding-bottom: 0.5rem; border-bottom: 2px solid var(--border-color); }
+
+        .tab-navigation {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            background: var(--tab-bg);
+            padding: 0.4rem;
+            border-radius: 8px;
+        }
+
+        .tab-trigger {
+            flex: 1;
+            padding: 0.75rem;
+            border: none;
+            background: transparent;
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            border-radius: 6px;
+            color: var(--text-muted);
+        }
+
+        .tab-trigger.active {
+            background: var(--tab-active-bg);
+            color: var(--primary);
+        }
+
+        .tab-view { display: none; }
+        .tab-view.active { display: block; }
+
+        .step-item {
+            background: var(--bg-body);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            border-left: 4px solid var(--primary);
+        }
+
+        .step-item strong { display: block; color: var(--text-title); margin-bottom: 0.25rem; }
+
+        .quiz-box {
+            background: var(--bg-body);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            border: 1px solid var(--border-color);
+        }
+
+        .quiz-option { display: block; margin: 0.5rem 0; cursor: pointer; }
+
+        .btn-action {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.85rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .feedback {
+            margin-top: 0.5rem;
+            padding: 0.5rem;
+            border-radius: 6px;
+            font-weight: bold;
+            display: none;
+        }
+        .correct { background: rgba(16, 185, 129, 0.1); color: var(--success); }
+        .incorrect { background: rgba(239, 68, 68, 0.1); color: var(--danger); }
+
+        .ppt-slide {
+            background: #1e293b;
+            color: #f1f5f9;
+            padding: 1.2rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            border-left: 4px solid var(--success);
+        }
+        .ppt-slide h4 { margin: 0 0 0.5rem 0; color: #34d399; }
     </style>
 </head>
 <body>
-    <div class="card">
+
+    <header>
         <h1>Operating System Class Dashboard</h1>
-        <p>Interactive installation guides for Windows, Linux, and macOS have been streamlined to prevent browser freezes.</p>
-        <button id="submitQuizBtn" type="button" class="btn-action">✅ Test Interaction</button>
-    </div>
+        <p>Master installations with easy terms and quick slide workflows</p>
+    </header>
+
+    <main>
+        <!-- Card 1: Easy Step-by-Step Guides -->
+        <div class="card">
+            <h2>🚀 Easy Step-by-Step Installation Guides</h2>
+            
+            <div class="tab-navigation">
+                <button class="tab-trigger active" data-target="win">🪟 Windows</button>
+                <button class="tab-trigger" data-target="lin">🐧 Linux</button>
+                <button class="tab-trigger" data-target="mac">🍏 macOS</button>
+            </div>
+
+            <!-- Windows View -->
+            <div id="win-panel" class="tab-view active">
+                <div class="step-item"><strong>1. Plug in & Boot up</strong>Insert your Windows USB installer into the computer. Turn the PC on and keep tapping the boot key (usually F12 or F2) until a small menu pops up. Choose your USB drive to start.</div>
+                <div class="step-item"><strong>2. Choose Language</strong>Click your language, country, and keyboard layout from the list, then click the big "Install Now" button.</div>
+                <div class="step-item"><strong>3. Pick "Custom" Install</strong>Choose "Custom: Install Windows only". This ensures a clean, fresh setup rather than an upgrade patch.</div>
+                <div class="step-item"><strong>4. Select Storage Drive</strong>Click on your main hard drive partition from the list and hit Next. Windows will configure the space for you.</div>
+                <div class="step-item"><strong>5. The Critical Unplug</strong>When files finish copying and the system says it is restarting, pull out the USB drive so the setup loop doesn't restart.</div>
+            </div>
+
+            <!-- Linux View -->
+            <div id="lin-panel" class="tab-view">
+                <div class="step-item"><strong>1. Boot into Live Desktop</strong>Plug in your Linux USB drive, start the machine, and choose "Try or Install Ubuntu". This runs a working test sandbox without changing your drive yet.</div>
+                <div class="step-item"><strong>2. Open Setup Wizard</strong>Click the desktop shortcut icon named "Install Ubuntu" to activate the installer window.</div>
+                <div class="step-item"><strong>3. Drive Layout Allocations</strong>Select "Erase disk and install Ubuntu". This automatically wipes any old data and configures the standard Linux partition settings.</div>
+                <div class="step-item"><strong>4. Account Profiles</strong>Pick your time zone map coordinate and write down your username, computer network label, and a private login password.</div>
+            </div>
+
+            <!-- macOS View -->
+            <div id="mac-panel" class="tab-view">
+                <div class="step-item"><strong>1. Enter Recovery Mode</strong>Turn off your Mac. Hold down Cmd + R (Intel Mac) or hold the physical Power button (Apple Silicon Mac) until recovery options display.</div>
+                <div class="step-item"><strong>2. Disk Utility Format</strong>Open "Disk Utility", click on your main storage drive container, choose "Erase", format it cleanly as "APFS", and close the tool.</div>
+                <div class="step-item"><strong>3. Reinstall macOS</strong>Select "Reinstall macOS" from the utility grid layout menu, click continue, choose your drive, and stream the setup files from the network cloud.</div>
+            </div>
+        </div>
+
+        <!-- Card 2: Presentation Outlines -->
+        <div class="card">
+            <h2>📊 Presentation Plan: How to Explain This on a Slide PPT</h2>
+            <div class="ppt-slide">
+                <h4>🛝 Slide 1: General Introduction</h4>
+                <p><strong>Script:</strong> "Every operating system acts like the brain of a computer. Today, we aren't just memorizing buttons—we are learning the golden workflow sequence to deploy any OS on earth."</p>
+            </div>
+            <div class="ppt-slide">
+                <h4>🛝 Slide 2: Crucial USB Boot Intercept</h4>
+                <p><strong>Script:</strong> "We use tools like Rufus to turn flash drives into bootable media. We must intercept the startup using keys like F12 to read our USB drive before the empty hard disk handles it."</p>
+            </div>
+        </div>
+
+        <!-- Card 3: Interactive Classroom Quiz -->
+        <div class="card">
+            <h2>📝 Classroom Knowledge Assessment Challenge</h2>
+            
+            <div class="quiz-box">
+                <div><strong>1. Why must you unplug your installer USB drive during the first Windows reboot?</strong></div>
+                <label class="quiz-option"><input type="radio" name="q1" value="A"> A) To save electricity</label>
+                <label class="quiz-option"><input type="radio" name="q1" value="B"> B) To avoid looping straight back into the installer startup screen</label>
+                <div id="f1" class="feedback"></div>
+            </div>
+
+            <div class="quiz-box">
+                <div><strong>2. What does "Live Desktop" mode in a Linux installation mean?</strong></div>
+                <label class="quiz-option"><input type="radio" name="q2" value="A"> A) It runs a sandbox environment directly from your USB drive safely</label>
+                <label class="quiz-option"><input type="radio" name="q2" value="B"> B) It only loads over active video calls</label>
+                <div id="f2" class="feedback"></div>
+            </div>
+
+            <button id="submitQuizBtn" type="button" class="btn-action">✅ Submit Answers & Check Score</button>
+        </div>
+    </main>
+
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const btn = document.getElementById('submitQuizBtn');
-            if(btn) {
-                btn.addEventListener('click', () => {
-                    alert('Clicks are working properly now!');
-                });
-            }
-        });
-    </script>
-</body>
-</html>
+            // Safe Tab Controller Switching
+            const triggers = document.querySelectorAll('.tab-trigger');
+            triggers.forEach(trigger => {
